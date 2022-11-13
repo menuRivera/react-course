@@ -1,12 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-
-function App() {
-    return (<h1>Hola mundo</h1>)
-}
+import { App } from './App'
+import "./styles.css"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <App />
+        <App title={'prop'} />
     </React.StrictMode>
 )
