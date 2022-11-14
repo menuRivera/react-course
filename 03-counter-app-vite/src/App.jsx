@@ -12,7 +12,6 @@ export const App = ({ title, subTitle, name }) => {
             <h1>Fist app</h1>
             <h3 data-testid="test-title">{title}</h3>
             <h4>{subTitle}</h4>
-            <h4>{subTitle}</h4>
             <p>{name}</p>
             <p>{printMessage('Sample text')}</p>
 
