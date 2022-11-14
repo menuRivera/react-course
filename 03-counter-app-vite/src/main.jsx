@@ -5,6 +5,6 @@ import "./styles.css"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <App title={'prop'} />
+        <App title='Un title de ejemplo' />
     </React.StrictMode>
 )

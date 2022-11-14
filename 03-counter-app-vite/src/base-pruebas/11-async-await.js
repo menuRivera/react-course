@@ -9,8 +9,7 @@ export const getPost = async (id) => {
         const url = 'https://jsonplaceholder.typicode.com/posts/'
 
         const resp = await fetch(url + id);
-        const { data } = await resp.json();
-        console.log(resp, data);
+        const data = await resp.json();
 
         // const { url } = data.images.original;
 
