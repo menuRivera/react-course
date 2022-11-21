@@ -5,7 +5,7 @@
 
 ## Jest configuration
 ```bash
-npm i -D @babel/preset-env @babel/preset-react @types/jest babel-jest isomorphic-fetch jest jest-environment-jsdom
+npm i -D @babel/preset-env @babel/preset-react @types/jest babel-jest isomorphic-fetch jest jest-environment-jsdom @testing-library/react
 ```
 
 ```js
