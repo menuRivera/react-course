@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
-import { AuthContext } from '../../../src/auth/context/AuthContext'
-import { PublicRoute } from '../../../src/router/PublicRoute'
+import { AuthContext } from '../../src/auth/context/AuthContext'
+import { PublicRoute } from '../../src/router/PublicRoute'
 describe('Pruebas en <PublicRoute />', () => {
     test('Debe mostrar el children si no esta autenticado', () => {
         const contextValue = {
