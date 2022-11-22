@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-
     page: 0,
     pokemons: [],
     isLoading: false
