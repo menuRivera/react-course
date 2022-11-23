@@ -1,8 +1,10 @@
 import { Link as RouterLink } from 'react-router-dom'
-import { Button, Grid, Link, TextField, Typography } from "@mui/material"
+import { Alert, Button, Grid, Link, TextField, Typography } from "@mui/material"
 import { AuthLayout } from "../layout/AuthLayout"
 import { useForm } from '../../hooks/useForm'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { startCreatingUserWithEmailPassword } from '../../store/auth/thunks'
 
 
 const formValidations = {
@@ -13,10 +15,13 @@ const formValidations = {
 
 export const RegisterPage = () => {
     const [formSubmitted, setFormSubmitted] = useState(false)
+    const dispatch = useDispatch()
 
+    const { status, errorMessage } = useSelector(state => state.auth)
+    const isCheckingAuthentication = useMemo(() => status === 'checking', [status])
 
     const {
-        displayName, email, password, onInputChange, displayNameValid, emailValid, passwordValid, isFormValid
+        displayName, email, password, onInputChange, displayNameValid, emailValid, passwordValid, isFormValid, formState
     } = useForm({
         email: '',
         displayName: '',
@@ -28,9 +33,9 @@ export const RegisterPage = () => {
 
         setFormSubmitted(true)
 
-        if(!isFormValid) return 
+        if (!isFormValid) return
 
-        console.log({ displayName, email, password });
+        dispatch(startCreatingUserWithEmailPassword(formState))
     }
 
     return (
@@ -93,8 +98,21 @@ export const RegisterPage = () => {
 
                     <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
 
+                        <Grid item xs={12}>
+                            <Alert
+                                severity="error"
+                                sx={{ display: (!!errorMessage ? '' : 'none') }}
+                            >
+                                {errorMessage}
+                            </Alert>
+                        </Grid>
+
                         <Grid item xs={12} sm={6}>
-                            <Button type='submit' variant='contained' fullWidth>
+                            <Button
+                                type='submit'
+                                variant='contained'
+                                disabled={isCheckingAuthentication}
+                                fullWidth>
                                 Register
                             </Button>
                         </Grid>
