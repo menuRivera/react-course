@@ -7,6 +7,6 @@ export const loadNotes = async (uid = '') => {
 
     const notes = docs.map(doc => ({ ...doc.data(), id: doc.id }))
 
-    console.log(notes);
+    // console.log(notes);
     return notes
 }
