@@ -13,6 +13,11 @@ export const fileUpload = async (file) => {
             body: formData
         })
 
+        // const jsonRes = await fetch('https://jsonplaceholder.typicode.com/todos/1')
+        // jsonRes = await jsonRes.json()
+
+        // console.log({ formData, res });
+
         if (!res.ok) throw new Error('no se pudo subir la imágen')
 
         const cloudRes = await res.json()
@@ -20,5 +25,6 @@ export const fileUpload = async (file) => {
         return cloudRes.secure_url
     } catch (error) {
         console.error(error);
+        return null
     }
 }
