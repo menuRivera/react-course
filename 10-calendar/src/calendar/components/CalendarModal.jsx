@@ -1,10 +1,12 @@
 import { addHours, differenceInSeconds } from 'date-fns';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import Modal from 'react-modal'
 import "react-datepicker/dist/react-datepicker.css";
 import { es } from 'date-fns/locale';
 import Swal from 'sweetalert2';
+import { useUiStore } from '../../hooks/useUiStore';
+import { useCalendarStore } from '../../hooks/useCalendarStore';
 
 registerLocale('es', es)
 
@@ -22,7 +24,8 @@ const customStyles = {
 Modal.setAppElement('#root');
 
 export const CalendarModal = () => {
-    const [isOpen, setIsOpen] = useState(true)
+    const { isDateModalOpen, closeDateModal } = useUiStore()
+    const { activeEvent, startSavingEvent } = useCalendarStore()
     const [formSubmitted, setFormSubmitted] = useState(false)
     const [formValues, setFormValues] = useState({
         title: 'Manuel',
@@ -41,6 +44,12 @@ export const CalendarModal = () => {
 
     }, [formValues.title, formSubmitted])
 
+    useEffect(() => {
+        if (activeEvent != null) {
+            setFormValues({ ...activeEvent })
+        }
+    }, [activeEvent])
+
     const onInputChange = ({ target }) => {
         setFormValues({
             ...formValues,
@@ -49,7 +58,7 @@ export const CalendarModal = () => {
     }
 
     const onCloseModal = () => {
-        setIsOpen(false)
+        closeDateModal()
     }
 
     const onDateChanged = (e, changing) => {
@@ -59,7 +68,7 @@ export const CalendarModal = () => {
         })
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault()
         setFormSubmitted(true)
 
@@ -70,10 +79,14 @@ export const CalendarModal = () => {
             return
         }
         if (formValues.title.length <= 0) return
+
+        await startSavingEvent(formValues)
+        closeDateModal()
+        setFormSubmitted(false)
     }
     return (
         <Modal
-            isOpen={isOpen}
+            isOpen={isDateModalOpen}
             closTimeout={200}
             onRequestClose={onCloseModal}
             style={customStyles}
