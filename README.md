@@ -4,8 +4,9 @@
 - 06-custom-hooks
 
 ## Jest configuration
+- Add test script to package.json `"test": "jest --watchAll"`
 ```bash
-npm i -D @babel/preset-env @babel/preset-react @types/jest babel-jest isomorphic-fetch jest jest-environment-jsdom @testing-library/react
+npm i -D @babel/preset-env @babel/preset-react @types/jest babel-jest isomorphic-fetch jest jest-environment-jsdom @testing-library/react babel-preset-vite babel-plugin-inline-dotenv
 ```
 
 ```js
@@ -18,7 +19,6 @@ module.exports = {
 
 ```js
 // jest.setup.js
-// import "whatwg-fetch"
 import 'isomorphic-fetch';
 ```
 
@@ -28,8 +28,8 @@ module.exports = {
     presets: [
         ['@babel/preset-env', { targets: { esmodules: true } }],
         ['@babel/preset-react', { runtime: 'automatic' }],
-        // ['babel-preset-vite']
+        ['babel-preset-vite']
     ],
-    // plugins: ['inline-dotenv']
+    plugins: ['inline-dotenv']
 };
 ```
