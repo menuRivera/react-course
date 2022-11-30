@@ -10,7 +10,10 @@ export const FabDelete = () => {
     if (!hasEventSelected) return <></>
 
     return (
-        <button className="btn btn-danger fab-danger" onClick={handleDelete}>
+        <button
+            aria-label="btn-delete"
+            className="btn btn-danger fab-danger"
+            onClick={handleDelete}>
             <i className="fas fa-trash-alt"></i>
         </button>
     )
